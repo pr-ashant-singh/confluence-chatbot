@@ -1,0 +1,161 @@
+# confluence-rag
+
+Turn your Confluence docs into a searchable AI chatbot in 5 minutes.
+
+`confluence-rag` ingests your Confluence spaces — text, tables, and architecture diagrams — into a local vector store, then answers questions using RAG (Retrieval-Augmented Generation) with source attribution.
+
+## Features
+
+- **Smart chunking** — splits by headings, keeps tables whole, handles pages without structure
+- **Diagram understanding** — uses a vision model (LLaVA) to describe architecture diagrams as searchable text
+- **Fully local** — runs with FAISS + Ollama, zero cloud costs for development
+- **Production-ready** — swap to S3 Vectors + Bedrock for AWS deployment
+- **Incremental sync** — only re-processes changed pages (coming in v0.2)
+- **Source attribution** — every answer cites exactly which page and section it came from
+
+## Quick Start
+
+### Install
+
+```bash
+pip install confluence-rag[all]
+```
+
+### Configure
+
+Create a `.env` file:
+
+```env
+CONFLUENCE_URL=https://yourcompany.atlassian.net
+CONFLUENCE_EMAIL=you@company.com
+CONFLUENCE_API_TOKEN=your-api-token
+```
+
+### Prerequisites
+
+```bash
+# Install and start Ollama (for local LLM)
+brew install ollama
+ollama serve  # in a separate terminal
+
+# Pull the models
+ollama pull llama3.1:8b    # for answer generation
+ollama pull llava:13b      # for diagram description (optional)
+```
+
+### Use as a Library
+
+```python
+from confluence_rag import ConfluenceRAG
+
+rag = ConfluenceRAG(
+    confluence_url="https://yourcompany.atlassian.net",
+    confluence_email="you@company.com",
+    confluence_token="your-token",
+    vector_store="faiss",
+    embedding_model="BAAI/bge-large-en-v1.5",
+    llm="ollama/llama3.1:8b",
+)
+
+# Ingest a space
+rag.sync(spaces=["ENG"])
+
+# Ask questions
+answer = rag.ask("How does our caching layer work?")
+print(answer.text)
+print(answer.sources)
+```
+
+### Use as CLI
+
+```bash
+# Sync a Confluence space
+confluence-rag sync --space ENG
+
+# Sync specific pages
+confluence-rag sync --page-id 1234567890
+
+# Ask a question
+confluence-rag ask "How does caching work?"
+
+# Interactive mode
+confluence-rag ask
+```
+
+## Configuration Options
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `vector_store` | `"faiss"` | `"faiss"` (local) or `"s3vectors"` (AWS) |
+| `embedding_model` | `"BAAI/bge-large-en-v1.5"` | Any sentence-transformers model |
+| `llm` | `"ollama/llama3.1:8b"` | Ollama model for answer generation |
+| `enable_image_description` | `False` | Describe diagrams with vision model |
+| `image_model` | `"llava:13b"` | Vision model for diagrams |
+| `top_k` | `5` | Number of chunks to retrieve per query |
+
+## How It Works
+
+```
+Confluence → Fetch pages → Smart chunk (text/tables/images)
+                                    ↓
+                         Embed (BAAI/bge-large-en-v1.5)
+                                    ↓
+                         Store in FAISS (local) or S3 Vectors (AWS)
+                                    ↓
+User question → Embed → Similarity search → Top-K chunks
+                                    ↓
+                         LLM generates grounded answer
+                                    ↓
+                         Answer + source citations
+```
+
+## Install Options
+
+```bash
+# Lightweight (no local models, for use with Bedrock APIs)
+pip install confluence-rag
+
+# With local embedding model (BAAI, requires PyTorch ~800MB)
+pip install confluence-rag[local]
+
+# With local LLM via Ollama
+pip install confluence-rag[ollama]
+
+# Full local setup (recommended for development)
+pip install confluence-rag[all]
+```
+
+## Project Structure
+
+```
+src/confluence_rag/
+├── core.py                  # Main ConfluenceRAG orchestrator
+├── models.py                # Data models (Page, Chunk, Answer)
+├── cli.py                   # Command-line interface
+├── ingest/
+│   ├── confluence_client.py # Confluence API integration
+│   ├── html_parser.py       # Parse Confluence HTML
+│   ├── chunker.py           # Smart content-aware chunking
+│   └── image_describer.py   # Vision model for diagrams
+├── embedding/
+│   ├── base.py              # Abstract embedding interface
+│   └── sentence_transformer.py  # Local embedding (BAAI)
+├── vector_store/
+│   ├── base.py              # Abstract vector store interface
+│   ├── faiss_store.py       # Local FAISS implementation
+│   └── s3_vectors.py        # AWS S3 Vectors implementation
+└── generation/
+    ├── base.py              # Abstract LLM interface
+    └── ollama_llm.py        # Local Ollama implementation
+```
+
+## Roadmap
+
+- [x] v0.1 — Core pipeline: sync, chunk, embed, query, answer (local)
+- [ ] v0.2 — Incremental sync, Bedrock LLM + embeddings, CLI improvements
+- [ ] v0.3 — Slack bot example, Streamlit UI, evaluation tooling
+- [ ] v1.0 — Production deployment guide, CDK infrastructure
+
+## License
+
+MIT
