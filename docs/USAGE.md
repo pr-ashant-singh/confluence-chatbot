@@ -146,13 +146,13 @@ CONFLUENCE_API_TOKEN=your-token
 ### Step 5: Sync and ask
 
 ```python
-from confluence_rag import ConfluenceRAG
+from confluence_chatbot import ConfluenceChatbot
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-rag = ConfluenceRAG(
+rag = ConfluenceChatbot(
     confluence_url=os.getenv("CONFLUENCE_URL"),
     confluence_email=os.getenv("CONFLUENCE_EMAIL"),
     confluence_token=os.getenv("CONFLUENCE_API_TOKEN"),
@@ -230,13 +230,13 @@ CONFLUENCE_API_TOKEN=your-token
 ### Step 4: Sync and ask
 
 ```python
-from confluence_rag import ConfluenceRAG
+from confluence_chatbot import ConfluenceChatbot
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-rag = ConfluenceRAG(
+rag = ConfluenceChatbot(
     confluence_url=os.getenv("CONFLUENCE_URL"),
     confluence_email=os.getenv("CONFLUENCE_EMAIL"),
     confluence_token=os.getenv("CONFLUENCE_API_TOKEN"),
@@ -315,9 +315,9 @@ confluence-chatbot ask "How does the auth service work?"
 ### Basic usage
 
 ```python
-from confluence_rag import ConfluenceRAG
+from confluence_chatbot import ConfluenceChatbot
 
-rag = ConfluenceRAG(
+rag = ConfluenceChatbot(
     confluence_url="https://company.atlassian.net",
     confluence_email="user@company.com",
     confluence_token="token",
@@ -373,17 +373,17 @@ print(f"Time: {stats['time_seconds']}s")
 ### Use custom components
 
 ```python
-from confluence_rag import ConfluenceRAG
-from confluence_rag.embedding import SentenceTransformerEmbedding
-from confluence_rag.vector_store import FAISSStore
-from confluence_rag.generation import OllamaLLM
+from confluence_chatbot import ConfluenceChatbot
+from confluence_chatbot.embedding import SentenceTransformerEmbedding
+from confluence_chatbot.vector_store import FAISSStore
+from confluence_chatbot.generation import OllamaLLM
 
 # Create components separately for more control
 embedding = SentenceTransformerEmbedding(model_name="all-MiniLM-L6-v2")
 store = FAISSStore(index_path="./my-index", dimension=384)
 llm = OllamaLLM(model="mistral:7b", temperature=0.2)
 
-rag = ConfluenceRAG(
+rag = ConfluenceChatbot(
     confluence_url="...",
     confluence_email="...",
     confluence_token="...",
@@ -447,7 +447,7 @@ Architecture diagrams in Confluence pages can be described using a vision model 
 ### Enable diagram description
 
 ```python
-rag = ConfluenceRAG(
+rag = ConfluenceChatbot(
     ...,
     enable_image_description=True,
     image_model="llava:13b",  # requires Ollama running
@@ -476,7 +476,7 @@ Each diagram takes ~5-10 seconds to describe. For spaces with many diagrams, the
 
 ## Configuration Reference
 
-### ConfluenceRAG Parameters
+### ConfluenceChatbot Parameters
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|

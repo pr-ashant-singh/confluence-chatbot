@@ -46,9 +46,9 @@ ollama pull llava:13b      # for diagram description (optional)
 ### Use as a Library
 
 ```python
-from confluence_rag import ConfluenceRAG
+from confluence_chatbot import ConfluenceChatbot
 
-rag = ConfluenceRAG(
+rag = ConfluenceChatbot(
     confluence_url="https://yourcompany.atlassian.net",
     confluence_email="you@company.com",
     confluence_token="your-token",
@@ -128,8 +128,8 @@ pip install confluence-chatbot[all]
 ## Project Structure
 
 ```
-src/confluence_rag/
-├── core.py                  # Main ConfluenceRAG orchestrator
+src/confluence_chatbot/
+├── core.py                  # Main ConfluenceChatbot orchestrator
 ├── models.py                # Data models (Page, Chunk, Answer)
 ├── cli.py                   # Command-line interface
 ├── ingest/

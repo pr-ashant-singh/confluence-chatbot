@@ -9,8 +9,8 @@ import json
 import boto3
 from loguru import logger
 
-from confluence_rag.generation.base import LLM
-from confluence_rag.models import Answer
+from confluence_chatbot.generation.base import LLM
+from confluence_chatbot.models import Answer
 
 
 class BedrockLLM(LLM):
@@ -27,7 +27,7 @@ class BedrockLLM(LLM):
         temperature: Sampling temperature (lower = more factual).
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG.ask()
+        - confluence_chatbot.core.ConfluenceChatbot.ask()
     Reference to:
         - Bedrock Runtime API (invoke_model)
     """
@@ -74,7 +74,7 @@ class BedrockLLM(LLM):
             Answer object with generated text and sources.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.ask()
+            - confluence_chatbot.core.ConfluenceChatbot.ask()
         Reference to:
             - Bedrock Runtime API (invoke_model with Messages API)
         """

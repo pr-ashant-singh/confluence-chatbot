@@ -20,14 +20,14 @@ import os
 
 from dotenv import load_dotenv
 
-from confluence_rag import ConfluenceRAG
+from confluence_chatbot import ConfluenceChatbot
 
 load_dotenv()
 
 
 def main():
     # Initialize with all-local setup
-    rag = ConfluenceRAG(
+    rag = ConfluenceChatbot(
         confluence_url=os.getenv("CONFLUENCE_URL"),
         confluence_email=os.getenv("CONFLUENCE_EMAIL"),
         confluence_token=os.getenv("CONFLUENCE_API_TOKEN"),

@@ -18,7 +18,7 @@ import os
 
 from dotenv import load_dotenv
 
-from confluence_rag import ConfluenceRAG
+from confluence_chatbot import ConfluenceChatbot
 
 load_dotenv()
 
@@ -31,7 +31,7 @@ S3_INDEX = os.getenv("S3_INDEX_NAME", "confluence-docs-bedrock")
 def main():
     print("🚀 Testing Bedrock + S3 Vectors production setup\n")
 
-    rag = ConfluenceRAG(
+    rag = ConfluenceChatbot(
         confluence_url=os.getenv("CONFLUENCE_URL"),
         confluence_email=os.getenv("CONFLUENCE_EMAIL"),
         confluence_token=os.getenv("CONFLUENCE_API_TOKEN"),

@@ -1,6 +1,6 @@
 """Core orchestrator for confluence-chatbot.
 
-The ConfluenceRAG class is the main entry point. It wires together
+The ConfluenceChatbot class is the main entry point. It wires together
 ingestion, embedding, vector storage, retrieval, and generation
 into a simple interface.
 """
@@ -9,20 +9,20 @@ import time
 
 from loguru import logger
 
-from confluence_rag.embedding.base import EmbeddingModel
-from confluence_rag.embedding.sentence_transformer import SentenceTransformerEmbedding
-from confluence_rag.generation.base import LLM
-from confluence_rag.generation.ollama_llm import OllamaLLM
-from confluence_rag.ingest.chunker import Chunker
-from confluence_rag.ingest.confluence_client import ConfluenceClient
-from confluence_rag.ingest.image_describer import ImageDescriber
-from confluence_rag.ingest.sync_manager import SyncManager
-from confluence_rag.models import Answer
-from confluence_rag.vector_store.base import VectorStore
-from confluence_rag.vector_store.s3_vectors import S3VectorsStore
+from confluence_chatbot.embedding.base import EmbeddingModel
+from confluence_chatbot.embedding.sentence_transformer import SentenceTransformerEmbedding
+from confluence_chatbot.generation.base import LLM
+from confluence_chatbot.generation.ollama_llm import OllamaLLM
+from confluence_chatbot.ingest.chunker import Chunker
+from confluence_chatbot.ingest.confluence_client import ConfluenceClient
+from confluence_chatbot.ingest.image_describer import ImageDescriber
+from confluence_chatbot.ingest.sync_manager import SyncManager
+from confluence_chatbot.models import Answer
+from confluence_chatbot.vector_store.base import VectorStore
+from confluence_chatbot.vector_store.s3_vectors import S3VectorsStore
 
 
-class ConfluenceRAG:
+class ConfluenceChatbot:
     """Main orchestrator for RAG over Confluence documentation.
 
     Provides a simple interface to:
@@ -45,7 +45,7 @@ class ConfluenceRAG:
         top_k: Number of chunks to retrieve per query.
 
     Usage:
-        rag = ConfluenceRAG(
+        rag = ConfluenceChatbot(
             confluence_url="https://company.atlassian.net",
             confluence_email="user@company.com",
             confluence_token="...",
@@ -77,7 +77,7 @@ class ConfluenceRAG:
         image_model: str = "llava:13b",
         top_k: int = 5,
     ) -> None:
-        logger.debug("ConfluenceRAG.__init__ called")
+        logger.debug("ConfluenceChatbot.__init__ called")
 
         # Confluence client
         self._confluence = ConfluenceClient(
@@ -89,7 +89,7 @@ class ConfluenceRAG:
         # Embedding model
         if isinstance(embedding_model, str):
             if embedding_model.lower().startswith("bedrock/"):
-                from confluence_rag.embedding.bedrock import BedrockEmbedding
+                from confluence_chatbot.embedding.bedrock import BedrockEmbedding
 
                 self._embedding = BedrockEmbedding(
                     region=s3_region,
@@ -112,7 +112,7 @@ class ConfluenceRAG:
                 profile_name=s3_profile,
             )
         elif isinstance(vector_store, str) and vector_store.lower() == "faiss":
-            from confluence_rag.vector_store.faiss_store import FAISSStore
+            from confluence_chatbot.vector_store.faiss_store import FAISSStore
 
             self._vector_store = FAISSStore(
                 index_path=".data/faiss_index",
@@ -130,7 +130,7 @@ class ConfluenceRAG:
             model_name = llm.split("/", 1)[1]
             self._llm = OllamaLLM(model=model_name)
         elif isinstance(llm, str) and llm.startswith("bedrock/"):
-            from confluence_rag.generation.bedrock_llm import BedrockLLM
+            from confluence_chatbot.generation.bedrock_llm import BedrockLLM
 
             self._llm = BedrockLLM(
                 region=s3_region,

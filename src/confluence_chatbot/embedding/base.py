@@ -17,7 +17,7 @@ class EmbeddingModel(ABC):
     but the vector space must be consistent.
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG
+        - confluence_chatbot.core.ConfluenceChatbot
     Reference to:
         - Concrete implementations (SentenceTransformerEmbedding, BedrockEmbedding)
     """

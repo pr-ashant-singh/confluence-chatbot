@@ -9,9 +9,9 @@ import re
 
 from loguru import logger
 
-from confluence_rag.ingest.html_parser import HTMLParser
-from confluence_rag.ingest.image_describer import ImageDescriber
-from confluence_rag.models import Chunk, ContentType, Page
+from confluence_chatbot.ingest.html_parser import HTMLParser
+from confluence_chatbot.ingest.image_describer import ImageDescriber
+from confluence_chatbot.models import Chunk, ContentType, Page
 
 
 class Chunker:
@@ -28,7 +28,7 @@ class Chunker:
         image_describer: Optional vision model for describing diagrams.
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG.sync()
+        - confluence_chatbot.core.ConfluenceChatbot.sync()
     Reference to:
         - HTMLParser
         - ImageDescriber
@@ -64,7 +64,7 @@ class Chunker:
             List of Chunk objects ready for embedding.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.sync()
+            - confluence_chatbot.core.ConfluenceChatbot.sync()
         Reference to:
             - _chunk_text_sections()
             - _chunk_tables()

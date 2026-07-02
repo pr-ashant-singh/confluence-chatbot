@@ -8,7 +8,7 @@ index creation, vector upload, and querying.
 import boto3
 from loguru import logger
 
-from confluence_rag.vector_store.base import SearchResult, VectorStore
+from confluence_chatbot.vector_store.base import SearchResult, VectorStore
 
 
 class S3VectorsStore(VectorStore):
@@ -25,7 +25,7 @@ class S3VectorsStore(VectorStore):
         profile_name: AWS CLI profile name for authentication.
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG
+        - confluence_chatbot.core.ConfluenceChatbot
     Reference to:
         - boto3 s3vectors client
     """
@@ -67,7 +67,7 @@ class S3VectorsStore(VectorStore):
         Idempotent — safe to call multiple times. Checks for existence first.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.sync()
+            - confluence_chatbot.core.ConfluenceChatbot.sync()
         Reference to:
             - S3 Vectors API (list_indexes, create_index)
         """
@@ -119,7 +119,7 @@ class S3VectorsStore(VectorStore):
         handles batching automatically.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.sync()
+            - confluence_chatbot.core.ConfluenceChatbot.sync()
         Reference to:
             - S3 Vectors API (put_vectors)
         """

@@ -33,7 +33,7 @@ class VectorStore(ABC):
     - Managing vector lifecycle (upsert, delete)
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG
+        - confluence_chatbot.core.ConfluenceChatbot
     Reference to:
         - Concrete implementations (S3VectorsStore, FAISSStore)
     """
