@@ -1,0 +1,30 @@
+# Python
+*.py[cod]
+__pycache__/
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Environment & Secrets
+.env
+*.ini
+
+# Data & Test Output
+.data/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node (if needed later)
+node_modules/
+
