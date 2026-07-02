@@ -49,7 +49,7 @@ class SyncManager:
         state_path: Path to the JSON state file.
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG.sync()
+        - confluence_chatbot.core.ConfluenceChatbot.sync()
     Reference to:
         - Local filesystem (JSON state file)
     """
@@ -118,7 +118,7 @@ class SyncManager:
                 - 'unchanged': list of page_ids (same version)
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.sync()
+            - confluence_chatbot.core.ConfluenceChatbot.sync()
         Reference to:
             - self._state
         """
@@ -179,7 +179,7 @@ class SyncManager:
             space_key: The space this page belongs to.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.sync()
+            - confluence_chatbot.core.ConfluenceChatbot.sync()
         Reference to:
             - self._state, self._save_state()
         """
@@ -201,7 +201,7 @@ class SyncManager:
             page_id: The page ID to remove.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.sync()
+            - confluence_chatbot.core.ConfluenceChatbot.sync()
         Reference to:
             - self._state, self._save_state()
         """
@@ -230,7 +230,7 @@ class SyncManager:
         """Clear all sync state. Forces a full re-sync next time.
 
         Reference from:
-            - CLI (confluence-rag sync --full)
+            - CLI (confluence-chatbot sync --full)
         Reference to:
             - filesystem
         """

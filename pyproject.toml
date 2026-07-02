@@ -45,7 +45,7 @@ Homepage = "https://github.com/pr-ashant-singh/confluence-chatbot"
 Repository = "https://github.com/pr-ashant-singh/confluence-chatbot"
 
 [project.scripts]
-confluence-chatbot = "confluence_rag.cli:main"
+confluence-chatbot = "confluence_chatbot.cli:main"
 
 [build-system]
 requires = ["setuptools>=68.0"]

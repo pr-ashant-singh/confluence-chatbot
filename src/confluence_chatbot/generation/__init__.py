@@ -5,8 +5,8 @@ Supports multiple backends through a common interface:
 - AWS Bedrock (Claude, Titan)
 """
 
-from confluence_rag.generation.base import LLM
-from confluence_rag.generation.bedrock_llm import BedrockLLM
-from confluence_rag.generation.ollama_llm import OllamaLLM
+from confluence_chatbot.generation.base import LLM
+from confluence_chatbot.generation.bedrock_llm import BedrockLLM
+from confluence_chatbot.generation.ollama_llm import OllamaLLM
 
 __all__ = ["LLM", "OllamaLLM", "BedrockLLM"]

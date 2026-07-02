@@ -7,7 +7,7 @@ Recommended: BAAI/bge-large-en-v1.5 for English retrieval tasks.
 from loguru import logger
 from sentence_transformers import SentenceTransformer
 
-from confluence_rag.embedding.base import EmbeddingModel
+from confluence_chatbot.embedding.base import EmbeddingModel
 
 
 class SentenceTransformerEmbedding(EmbeddingModel):
@@ -24,7 +24,7 @@ class SentenceTransformerEmbedding(EmbeddingModel):
         query_prefix: Prefix added to queries before embedding.
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG
+        - confluence_chatbot.core.ConfluenceChatbot
     Reference to:
         - sentence_transformers.SentenceTransformer
     """

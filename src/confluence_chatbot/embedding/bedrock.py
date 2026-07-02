@@ -11,7 +11,7 @@ import json
 import boto3
 from loguru import logger
 
-from confluence_rag.embedding.base import EmbeddingModel
+from confluence_chatbot.embedding.base import EmbeddingModel
 
 
 class BedrockEmbedding(EmbeddingModel):
@@ -27,7 +27,7 @@ class BedrockEmbedding(EmbeddingModel):
         dimension: Output dimension (Titan v2 supports 256, 512, 1024).
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG
+        - confluence_chatbot.core.ConfluenceChatbot
     Reference to:
         - Bedrock Runtime API (invoke_model)
     """

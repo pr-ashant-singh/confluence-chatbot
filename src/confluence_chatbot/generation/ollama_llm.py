@@ -6,8 +6,8 @@ for generating answers from retrieved context.
 
 from loguru import logger
 
-from confluence_rag.generation.base import LLM
-from confluence_rag.models import Answer
+from confluence_chatbot.generation.base import LLM
+from confluence_chatbot.models import Answer
 
 
 class OllamaLLM(LLM):
@@ -21,7 +21,7 @@ class OllamaLLM(LLM):
         temperature: Sampling temperature (lower = more factual).
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG.ask()
+        - confluence_chatbot.core.ConfluenceChatbot.ask()
     Reference to:
         - Ollama chat API
     """
@@ -49,7 +49,7 @@ class OllamaLLM(LLM):
             Answer object with generated text and sources.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.ask()
+            - confluence_chatbot.core.ConfluenceChatbot.ask()
         Reference to:
             - Ollama API (chat)
         """

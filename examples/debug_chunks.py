@@ -11,8 +11,8 @@ import os
 
 from dotenv import load_dotenv
 
-from confluence_rag.ingest.confluence_client import ConfluenceClient
-from confluence_rag.ingest.html_parser import HTMLParser
+from confluence_chatbot.ingest.confluence_client import ConfluenceClient
+from confluence_chatbot.ingest.html_parser import HTMLParser
 
 load_dotenv()
 

@@ -13,7 +13,7 @@ from pathlib import Path
 import numpy as np
 from loguru import logger
 
-from confluence_rag.vector_store.base import SearchResult, VectorStore
+from confluence_chatbot.vector_store.base import SearchResult, VectorStore
 
 
 class FAISSStore(VectorStore):
@@ -32,7 +32,7 @@ class FAISSStore(VectorStore):
         {index_path}/keys.json      — ordered list of vector keys
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG
+        - confluence_chatbot.core.ConfluenceChatbot
     Reference to:
         - faiss library
     """
@@ -140,7 +140,7 @@ class FAISSStore(VectorStore):
         FAISS add and one save operation.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.sync()
+            - confluence_chatbot.core.ConfluenceChatbot.sync()
         Reference to:
             - FAISS index.add()
         """
@@ -179,7 +179,7 @@ class FAISSStore(VectorStore):
             List of SearchResult objects sorted by similarity.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.ask()
+            - confluence_chatbot.core.ConfluenceChatbot.ask()
         Reference to:
             - FAISS index.search()
         """
@@ -246,7 +246,7 @@ class FAISSStore(VectorStore):
         """Delete all vectors whose keys start with the given prefix.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.sync()
+            - confluence_chatbot.core.ConfluenceChatbot.sync()
         Reference to:
             - _rebuild_without_keys()
         """

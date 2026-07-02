@@ -1,13 +1,13 @@
-"""Command-line interface for confluence-rag.
+"""Command-line interface for confluence-chatbot.
 
 Provides terminal commands to sync Confluence spaces and ask questions.
 
 Usage:
-    confluence-rag sync --space ENG
-    confluence-rag sync --space ENG --space DOCS
-    confluence-rag sync --page-id 1234567890
-    confluence-rag ask "How does caching work?"
-    confluence-rag ask  (interactive mode)
+    confluence-chatbot sync --space ENG
+    confluence-chatbot sync --space ENG --space DOCS
+    confluence-chatbot sync --page-id 1234567890
+    confluence-chatbot ask "How does caching work?"
+    confluence-chatbot ask  (interactive mode)
 """
 
 import argparse
@@ -17,11 +17,11 @@ import sys
 from dotenv import load_dotenv
 from loguru import logger
 
-from confluence_rag import ConfluenceRAG
+from confluence_chatbot import ConfluenceChatbot
 
 
-def get_rag() -> ConfluenceRAG:
-    """Create a ConfluenceRAG instance from environment variables.
+def get_rag() -> ConfluenceChatbot:
+    """Create a ConfluenceChatbot instance from environment variables.
 
     Reads configuration from .env file or environment variables:
     - CONFLUENCE_URL (required)
@@ -36,7 +36,7 @@ def get_rag() -> ConfluenceRAG:
     Reference from:
         - cmd_sync(), cmd_ask()
     Reference to:
-        - ConfluenceRAG
+        - ConfluenceChatbot
     """
     load_dotenv()
 
@@ -50,7 +50,7 @@ def get_rag() -> ConfluenceRAG:
         print("   in your .env file or environment variables.")
         sys.exit(1)
 
-    return ConfluenceRAG(
+    return ConfluenceChatbot(
         confluence_url=confluence_url,
         confluence_email=confluence_email,
         confluence_token=confluence_token,
@@ -68,7 +68,7 @@ def cmd_sync(args):
     Reference from:
         - main()
     Reference to:
-        - ConfluenceRAG.sync()
+        - ConfluenceChatbot.sync()
     """
     logger.debug("cmd_sync called")
     rag = get_rag()
@@ -107,7 +107,7 @@ def cmd_ask(args):
     Reference from:
         - main()
     Reference to:
-        - ConfluenceRAG.ask()
+        - ConfluenceChatbot.ask()
     """
     logger.debug("cmd_ask called")
     rag = get_rag()

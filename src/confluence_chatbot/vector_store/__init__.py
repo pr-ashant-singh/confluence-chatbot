@@ -5,8 +5,8 @@ Supports multiple backends through a common interface:
 - S3 Vectors (AWS managed, production-ready)
 """
 
-from confluence_rag.vector_store.base import SearchResult, VectorStore
-from confluence_rag.vector_store.faiss_store import FAISSStore
-from confluence_rag.vector_store.s3_vectors import S3VectorsStore
+from confluence_chatbot.vector_store.base import SearchResult, VectorStore
+from confluence_chatbot.vector_store.faiss_store import FAISSStore
+from confluence_chatbot.vector_store.s3_vectors import S3VectorsStore
 
 __all__ = ["VectorStore", "SearchResult", "FAISSStore", "S3VectorsStore"]

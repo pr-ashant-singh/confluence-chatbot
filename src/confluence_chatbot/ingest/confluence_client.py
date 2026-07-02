@@ -8,7 +8,7 @@ import requests
 from atlassian import Confluence
 from loguru import logger
 
-from confluence_rag.models import Page
+from confluence_chatbot.models import Page
 
 
 class ConfluenceClient:
@@ -24,7 +24,7 @@ class ConfluenceClient:
         cloud: Whether this is Confluence Cloud (True) or Server (False).
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG
+        - confluence_chatbot.core.ConfluenceChatbot
     Reference to:
         - atlassian-python-api library
     """
@@ -90,7 +90,7 @@ class ConfluenceClient:
             List of Page objects.
 
         Reference from:
-            - confluence_rag.core.ConfluenceRAG.sync()
+            - confluence_chatbot.core.ConfluenceChatbot.sync()
         Reference to:
             - Confluence REST API (get_all_pages_from_space)
         """

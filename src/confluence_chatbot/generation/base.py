@@ -6,7 +6,7 @@ This allows swapping between Ollama, Bedrock, OpenAI, etc.
 
 from abc import ABC, abstractmethod
 
-from confluence_rag.models import Answer
+from confluence_chatbot.models import Answer
 
 
 class LLM(ABC):
@@ -16,7 +16,7 @@ class LLM(ABC):
     then generates a grounded answer using only the provided context.
 
     Reference from:
-        - confluence_rag.core.ConfluenceRAG.ask()
+        - confluence_chatbot.core.ConfluenceChatbot.ask()
     Reference to:
         - Concrete implementations (OllamaLLM, BedrockLLM)
     """
