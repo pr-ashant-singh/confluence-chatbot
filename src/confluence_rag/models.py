@@ -1,4 +1,4 @@
-"""Data models for confluence-rag.
+"""Data models for confluence-chatbot.
 
 These define the core data structures that flow through the pipeline.
 All models use dataclasses for clarity and type safety.

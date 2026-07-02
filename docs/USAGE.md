@@ -1,4 +1,4 @@
-# confluence-rag: Detailed Usage Guide
+# confluence-chatbot: Detailed Usage Guide
 
 ## Table of Contents
 
@@ -42,31 +42,31 @@
 ### Minimal (API-only, for Bedrock backend)
 
 ```bash
-pip install confluence-rag
+pip install confluence-chatbot
 ```
 
 ### Local embeddings (BAAI model, requires PyTorch ~800MB)
 
 ```bash
-pip install confluence-rag[local]
+pip install confluence-chatbot[local]
 ```
 
 ### Local LLM + Vision (Ollama)
 
 ```bash
-pip install confluence-rag[ollama]
+pip install confluence-chatbot[ollama]
 ```
 
 ### Full local setup (recommended for development)
 
 ```bash
-pip install confluence-rag[all]
+pip install confluence-chatbot[all]
 ```
 
 ### Development (includes linting + testing)
 
 ```bash
-pip install confluence-rag[dev]
+pip install confluence-chatbot[dev]
 ```
 
 ---
@@ -93,7 +93,7 @@ IMAGE_MODEL=llava:13b
 
 1. Go to https://id.atlassian.com/manage-profile/security/api-tokens
 2. Click "Create API token"
-3. Label it (e.g., `confluence-rag`)
+3. Label it (e.g., `confluence-chatbot`)
 4. Copy the token — you won't see it again
 5. Add it to your `.env` file
 
@@ -106,7 +106,7 @@ No cloud accounts needed. Everything runs on your machine.
 ### Step 1: Install
 
 ```bash
-pip install confluence-rag[all]
+pip install confluence-chatbot[all]
 ```
 
 ### Step 2: Install and start Ollama
@@ -191,7 +191,7 @@ Uses Bedrock (Titan embeddings + Claude) and S3 Vectors. Fast, scalable, managed
 ### Step 1: Install
 
 ```bash
-pip install confluence-rag
+pip install confluence-chatbot
 ```
 
 ### Step 2: AWS Prerequisites
@@ -268,31 +268,31 @@ The CLI reads configuration from `.env` or environment variables.
 
 ```bash
 # Incremental sync (only new/changed pages)
-confluence-rag sync --space ENG
+confluence-chatbot sync --space ENG
 
 # Sync multiple spaces
-confluence-rag sync --space ENG --space DEVOPS --space PLATFORM
+confluence-chatbot sync --space ENG --space DEVOPS --space PLATFORM
 
 # Sync specific pages by ID
-confluence-rag sync --page-id 1234567890 --page-id 9876543210
+confluence-chatbot sync --page-id 1234567890 --page-id 9876543210
 
 # Force full re-sync (ignore cached state)
-confluence-rag sync --space ENG --full
+confluence-chatbot sync --space ENG --full
 ```
 
 ### Ask questions
 
 ```bash
 # Direct question
-confluence-rag ask "How does caching work?"
+confluence-chatbot ask "How does caching work?"
 
 # Interactive mode (prompts for input)
-confluence-rag ask
+confluence-chatbot ask
 
 # Examples
-confluence-rag ask "What is the deployment process?"
-confluence-rag ask "Which databases do we use?"
-confluence-rag ask "How does the auth service work?"
+confluence-chatbot ask "What is the deployment process?"
+confluence-chatbot ask "Which databases do we use?"
+confluence-chatbot ask "How does the auth service work?"
 ```
 
 ### CLI Environment Variables
@@ -410,22 +410,22 @@ After the first full sync, subsequent syncs only process new or changed pages.
 
 ```bash
 # First run — processes everything
-confluence-rag sync --space ENG
+confluence-chatbot sync --space ENG
 # → 50 pages processed, 127 chunks, 8.5s
 
 # Second run — nothing changed
-confluence-rag sync --space ENG
+confluence-chatbot sync --space ENG
 # → 0 pages processed, 50 skipped, 0.4s
 
 # After someone edits a page
-confluence-rag sync --space ENG
+confluence-chatbot sync --space ENG
 # → 1 page processed, 49 skipped, 1.2s
 ```
 
 ### Force full re-sync
 
 ```bash
-confluence-rag sync --space ENG --full
+confluence-chatbot sync --space ENG --full
 ```
 
 Or in Python:
@@ -525,13 +525,13 @@ Each diagram takes ~5-10 seconds to describe. For spaces with many diagrams, the
 ### "sentence-transformers not found"
 
 ```bash
-pip install confluence-rag[local]
+pip install confluence-chatbot[local]
 ```
 
 ### "ollama package not found"
 
 ```bash
-pip install confluence-rag[ollama]
+pip install confluence-chatbot[ollama]
 ```
 
 ### "Could not connect to Ollama"
@@ -575,7 +575,7 @@ Delete and re-sync:
 
 ```bash
 rm .data/sync_state.json
-confluence-rag sync --space ENG --full
+confluence-chatbot sync --space ENG --full
 ```
 
 ### FAISS index is corrupted
@@ -584,7 +584,7 @@ Delete and re-sync:
 
 ```bash
 rm -rf .data/faiss_index/
-confluence-rag sync --space ENG --full
+confluence-chatbot sync --space ENG --full
 ```
 
 ### HuggingFace rate limit warning

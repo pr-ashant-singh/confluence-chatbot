@@ -1,13 +1,13 @@
-"""Command-line interface for confluence-rag.
+"""Command-line interface for confluence-chatbot.
 
 Provides terminal commands to sync Confluence spaces and ask questions.
 
 Usage:
-    confluence-rag sync --space ENG
-    confluence-rag sync --space ENG --space DOCS
-    confluence-rag sync --page-id 1234567890
-    confluence-rag ask "How does caching work?"
-    confluence-rag ask  (interactive mode)
+    confluence-chatbot sync --space ENG
+    confluence-chatbot sync --space ENG --space DOCS
+    confluence-chatbot sync --page-id 1234567890
+    confluence-chatbot ask "How does caching work?"
+    confluence-chatbot ask  (interactive mode)
 """
 
 import argparse

@@ -1,4 +1,4 @@
-"""confluence-rag: Plug-and-play RAG for Confluence documentation.
+"""confluence-chatbot: Plug-and-play RAG for Confluence documentation.
 
 A library that turns your Confluence docs into a searchable knowledge base
 with support for text, tables, and architecture diagrams.

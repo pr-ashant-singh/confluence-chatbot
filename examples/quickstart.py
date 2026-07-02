@@ -1,4 +1,4 @@
-"""Quick test of the confluence-rag library — full local pipeline.
+"""Quick test of the confluence-chatbot library — full local pipeline.
 
 This tests:
 1. Connect to Confluence and fetch a page

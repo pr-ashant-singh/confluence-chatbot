@@ -1,8 +1,8 @@
-# confluence-rag
+# confluence-chatbot
 
 Turn your Confluence docs into a searchable AI chatbot in 5 minutes.
 
-`confluence-rag` ingests your Confluence spaces — text, tables, and architecture diagrams — into a local vector store, then answers questions using RAG (Retrieval-Augmented Generation) with source attribution.
+`confluence-chatbot` ingests your Confluence spaces — text, tables, and architecture diagrams — into a local vector store, then answers questions using RAG (Retrieval-Augmented Generation) with source attribution.
 
 ## Features
 
@@ -18,7 +18,7 @@ Turn your Confluence docs into a searchable AI chatbot in 5 minutes.
 ### Install
 
 ```bash
-pip install confluence-rag[all]
+pip install confluence-chatbot[all]
 ```
 
 ### Configure
@@ -70,16 +70,16 @@ print(answer.sources)
 
 ```bash
 # Sync a Confluence space
-confluence-rag sync --space ENG
+confluence-chatbot sync --space ENG
 
 # Sync specific pages
-confluence-rag sync --page-id 1234567890
+confluence-chatbot sync --page-id 1234567890
 
 # Ask a question
-confluence-rag ask "How does caching work?"
+confluence-chatbot ask "How does caching work?"
 
 # Interactive mode
-confluence-rag ask
+confluence-chatbot ask
 ```
 
 ## Configuration Options
@@ -113,16 +113,16 @@ User question → Embed → Similarity search → Top-K chunks
 
 ```bash
 # Lightweight (no local models, for use with Bedrock APIs)
-pip install confluence-rag
+pip install confluence-chatbot
 
 # With local embedding model (BAAI, requires PyTorch ~800MB)
-pip install confluence-rag[local]
+pip install confluence-chatbot[local]
 
 # With local LLM via Ollama
-pip install confluence-rag[ollama]
+pip install confluence-chatbot[ollama]
 
 # Full local setup (recommended for development)
-pip install confluence-rag[all]
+pip install confluence-chatbot[all]
 ```
 
 ## Project Structure

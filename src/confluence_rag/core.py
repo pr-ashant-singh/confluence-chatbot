@@ -1,4 +1,4 @@
-"""Core orchestrator for confluence-rag.
+"""Core orchestrator for confluence-chatbot.
 
 The ConfluenceRAG class is the main entry point. It wires together
 ingestion, embedding, vector storage, retrieval, and generation

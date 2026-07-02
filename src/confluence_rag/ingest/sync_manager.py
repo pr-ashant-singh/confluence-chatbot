@@ -230,7 +230,7 @@ class SyncManager:
         """Clear all sync state. Forces a full re-sync next time.
 
         Reference from:
-            - CLI (confluence-rag sync --full)
+            - CLI (confluence-chatbot sync --full)
         Reference to:
             - filesystem
         """
