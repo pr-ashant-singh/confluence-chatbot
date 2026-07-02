@@ -91,15 +91,17 @@ Question: {question}
 
 Answer:"""
 
-        body = json.dumps({
-            "anthropic_version": "bedrock-2023-05-31",
-            "system": self.SYSTEM_PROMPT,
-            "messages": [
-                {"role": "user", "content": user_message},
-            ],
-            "max_tokens": self._max_tokens,
-            "temperature": self._temperature,
-        })
+        body = json.dumps(
+            {
+                "anthropic_version": "bedrock-2023-05-31",
+                "system": self.SYSTEM_PROMPT,
+                "messages": [
+                    {"role": "user", "content": user_message},
+                ],
+                "max_tokens": self._max_tokens,
+                "temperature": self._temperature,
+            }
+        )
 
         response = self._client.invoke_model(
             modelId=self._model_id,

@@ -6,8 +6,6 @@ This allows swapping between Ollama, Bedrock, OpenAI, etc.
 
 from abc import ABC, abstractmethod
 
-from loguru import logger
-
 from confluence_rag.models import Answer
 
 
@@ -28,7 +26,8 @@ Your job is to answer questions about engineering systems, architecture, and pip
 
 RULES:
 - Answer ONLY based on the provided context below.
-- If the context does not contain enough information to answer, say "I don't have enough information to answer this based on the available documentation."
+- If the context does not contain enough information to answer, say \
+"I don't have enough information to answer this based on the available documentation."
 - Cite which section the information comes from.
 - Be concise and technical.
 - Do not make up information."""

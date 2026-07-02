@@ -8,8 +8,6 @@ without changing pipeline logic.
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from loguru import logger
-
 
 @dataclass
 class SearchResult:
@@ -54,9 +52,7 @@ class VectorStore(ABC):
         ...
 
     @abstractmethod
-    def upsert_batch(
-        self, keys: list[str], vectors: list[list[float]], metadatas: list[dict]
-    ) -> None:
+    def upsert_batch(self, keys: list[str], vectors: list[list[float]], metadatas: list[dict]) -> None:
         """Insert or update multiple vectors in a batch.
 
         More efficient than calling upsert() in a loop.

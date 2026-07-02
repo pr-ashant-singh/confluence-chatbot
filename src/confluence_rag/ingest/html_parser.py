@@ -101,19 +101,12 @@ class HTMLParser:
             headers = []
             first_row = rows[0] if rows else None
             if first_row:
-                headers = [
-                    th.get_text(strip=True)
-                    for th in first_row.find_all(["th", "td"])
-                ]
+                headers = [th.get_text(strip=True) for th in first_row.find_all(["th", "td"])]
 
             for row in rows[1:]:
-                cells = [
-                    td.get_text(strip=True) for td in row.find_all(["td", "th"])
-                ]
+                cells = [td.get_text(strip=True) for td in row.find_all(["td", "th"])]
                 if headers and cells:
-                    row_text = " | ".join(
-                        f"{h}: {c}" for h, c in zip(headers, cells)
-                    )
+                    row_text = " | ".join(f"{h}: {c}" for h, c in zip(headers, cells))
                     table_text_parts.append(row_text)
 
             table_text = "\n".join(table_text_parts)

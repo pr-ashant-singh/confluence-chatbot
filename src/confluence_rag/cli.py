@@ -80,20 +80,20 @@ def cmd_sync(args):
         print("❌ Provide at least one --space or --page-id")
         sys.exit(1)
 
-    print(f"📥 Syncing...")
+    print("📥 Syncing...")
     if spaces:
         print(f"   Spaces: {', '.join(spaces)}")
     if page_ids:
         print(f"   Pages:  {', '.join(page_ids)}")
     if args.full:
-        print(f"   Mode:   FULL (ignoring cached state)")
+        print("   Mode:   FULL (ignoring cached state)")
     else:
-        print(f"   Mode:   Incremental (only new/changed pages)")
+        print("   Mode:   Incremental (only new/changed pages)")
     print()
 
     stats = rag.sync(spaces=spaces, page_ids=page_ids, full=args.full)
 
-    print(f"✅ Sync complete!")
+    print("✅ Sync complete!")
     print(f"   Pages processed: {stats['pages_processed']}")
     print(f"   Pages skipped:   {stats.get('pages_skipped', 'N/A')}")
     print(f"   Pages deleted:   {stats.get('pages_deleted', 'N/A')}")
@@ -122,14 +122,14 @@ def cmd_ask(args):
         print("❌ No question provided")
         sys.exit(1)
 
-    print(f"\n🔍 Searching knowledge base...")
+    print("\n🔍 Searching knowledge base...")
     answer = rag.ask(question)
 
     print(f"\n{'=' * 60}")
     print(f"❓ {question}")
     print(f"{'=' * 60}")
     print(f"\n💬 {answer.text}")
-    print(f"\n📚 Sources:")
+    print("\n📚 Sources:")
     for src in answer.sources:
         heading = src.get("heading", "")
         page = src.get("page_title", "")
@@ -151,21 +151,13 @@ def main():
 
     # sync command
     sync_parser = subparsers.add_parser("sync", help="Ingest Confluence pages")
-    sync_parser.add_argument(
-        "--space", action="append", help="Confluence space key (can repeat)"
-    )
-    sync_parser.add_argument(
-        "--page-id", action="append", help="Specific page ID (can repeat)"
-    )
-    sync_parser.add_argument(
-        "--full", action="store_true", help="Force full re-sync (ignore cached state)"
-    )
+    sync_parser.add_argument("--space", action="append", help="Confluence space key (can repeat)")
+    sync_parser.add_argument("--page-id", action="append", help="Specific page ID (can repeat)")
+    sync_parser.add_argument("--full", action="store_true", help="Force full re-sync (ignore cached state)")
 
     # ask command
     ask_parser = subparsers.add_parser("ask", help="Ask a question")
-    ask_parser.add_argument(
-        "question", nargs="*", help="The question (or omit for interactive)"
-    )
+    ask_parser.add_argument("question", nargs="*", help="The question (or omit for interactive)")
 
     args = parser.parse_args()
 

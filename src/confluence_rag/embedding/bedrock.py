@@ -77,11 +77,13 @@ class BedrockEmbedding(EmbeddingModel):
         Reference to:
             - Bedrock Runtime API
         """
-        body = json.dumps({
-            "inputText": text,
-            "dimensions": self._dimension,
-            "normalize": True,
-        })
+        body = json.dumps(
+            {
+                "inputText": text,
+                "dimensions": self._dimension,
+                "normalize": True,
+            }
+        )
 
         response = self._client.invoke_model(
             modelId=self._model_id,

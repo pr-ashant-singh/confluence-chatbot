@@ -58,9 +58,7 @@ class EmbeddingModel(ABC):
         """
         ...
 
-    def embed_documents_batch(
-        self, texts: list[str], batch_size: int = 32
-    ) -> list[list[float]]:
+    def embed_documents_batch(self, texts: list[str], batch_size: int = 32) -> list[list[float]]:
         """Embed documents in batches for memory efficiency.
 
         Default implementation calls embed_documents in chunks.
@@ -78,15 +76,11 @@ class EmbeddingModel(ABC):
         Reference to:
             - self.embed_documents()
         """
-        logger.debug(
-            f"embed_documents_batch called with {len(texts)} texts, batch_size={batch_size}"
-        )
+        logger.debug(f"embed_documents_batch called with {len(texts)} texts, batch_size={batch_size}")
         all_embeddings = []
         for i in range(0, len(texts), batch_size):
             batch = texts[i : i + batch_size]
             embeddings = self.embed_documents(batch)
             all_embeddings.extend(embeddings)
-            logger.debug(
-                f"Batch {i // batch_size + 1}: embedded {len(batch)} texts"
-            )
+            logger.debug(f"Batch {i // batch_size + 1}: embedded {len(batch)} texts")
         return all_embeddings

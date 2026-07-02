@@ -40,9 +40,7 @@ class Chunker:
         overlap: int = 100,
         image_describer: ImageDescriber | None = None,
     ) -> None:
-        logger.debug(
-            f"Chunker.__init__ called with max_chunk_size={max_chunk_size}, overlap={overlap}"
-        )
+        logger.debug(f"Chunker.__init__ called with max_chunk_size={max_chunk_size}, overlap={overlap}")
         self._max_chunk_size = max_chunk_size
         self._overlap = overlap
         self._parser = HTMLParser()
@@ -83,6 +81,7 @@ class Chunker:
 
         # Skip raw data dumps (large pages with no structure)
         from bs4 import BeautifulSoup
+
         soup = BeautifulSoup(page.html_body, "html.parser")
         html_headings = soup.find_all(["h1", "h2", "h3", "h4"])
         if len(plain_text) > 50000 and len(html_headings) == 0:
@@ -115,10 +114,11 @@ class Chunker:
             all_chunks.append(chunk)
             chunk_counter += 1
 
+        table_count = len([c for c in all_chunks if c.content_type in (ContentType.TABLE, ContentType.TABLE_SUMMARY)])
         logger.info(
             f"Page '{page.title}': {len(all_chunks)} chunks "
             f"(images: {len([c for c in all_chunks if c.content_type == ContentType.DIAGRAM])}, "
-            f"tables: {len([c for c in all_chunks if c.content_type in (ContentType.TABLE, ContentType.TABLE_SUMMARY)])}, "
+            f"tables: {table_count}, "
             f"text: {len([c for c in all_chunks if c.content_type == ContentType.TEXT])})"
         )
 
@@ -148,6 +148,7 @@ class Chunker:
         logger.debug(f"_chunk_text_smart called for page '{page.title}'")
 
         from bs4 import BeautifulSoup
+
         soup = BeautifulSoup(page.html_body, "html.parser")
         html_headings = soup.find_all(["h1", "h2", "h3", "h4"])
 
@@ -268,7 +269,7 @@ class Chunker:
         return chunks
 
     def _chunk_by_paragraphs(self, text: str, page: Page) -> list[Chunk]:
-        """Fallback chunker: split by paragraph boundaries.
+        r"""Fallback chunker: split by paragraph boundaries.
 
         Used when no headings are detected. Splits text into chunks
         at paragraph breaks (\n\n) while respecting max size.
@@ -329,7 +330,7 @@ class Chunker:
                         space_key=page.space_key,
                     )
                 )
-                current_chunk = current_chunk[-self._overlap:] + "\n" + para
+                current_chunk = current_chunk[-self._overlap :] + "\n" + para
             else:
                 current_chunk = current_chunk + "\n" + para if current_chunk else para
 
@@ -395,9 +396,7 @@ class Chunker:
 
         return chunks
 
-    def _split_long_section(
-        self, content: str, heading: str, page: Page
-    ) -> list[Chunk]:
+    def _split_long_section(self, content: str, heading: str, page: Page) -> list[Chunk]:
         """Split a section that exceeds max_chunk_size by paragraphs.
 
         Uses overlap to preserve context at boundaries.
@@ -420,10 +419,7 @@ class Chunker:
         current_chunk = ""
 
         for para in paragraphs:
-            if (
-                len(current_chunk) + len(para) + 1 > self._max_chunk_size
-                and current_chunk
-            ):
+            if len(current_chunk) + len(para) + 1 > self._max_chunk_size and current_chunk:
                 chunks.append(
                     Chunk(
                         chunk_id="",
@@ -438,9 +434,7 @@ class Chunker:
                 )
                 current_chunk = current_chunk[-self._overlap :] + "\n" + para
             else:
-                current_chunk = (
-                    current_chunk + "\n" + para if current_chunk else para
-                )
+                current_chunk = current_chunk + "\n" + para if current_chunk else para
 
         if current_chunk.strip():
             chunks.append(
@@ -481,20 +475,24 @@ class Chunker:
         for line in lines:
             if re.match(section_pattern, line.strip()):
                 if current_lines:
-                    sections.append({
-                        "heading": current_heading,
-                        "content": "\n".join(current_lines).strip(),
-                    })
+                    sections.append(
+                        {
+                            "heading": current_heading,
+                            "content": "\n".join(current_lines).strip(),
+                        }
+                    )
                 current_heading = line.strip()
                 current_lines = []
             else:
                 current_lines.append(line)
 
         if current_lines:
-            sections.append({
-                "heading": current_heading,
-                "content": "\n".join(current_lines).strip(),
-            })
+            sections.append(
+                {
+                    "heading": current_heading,
+                    "content": "\n".join(current_lines).strip(),
+                }
+            )
 
         return sections
 
@@ -608,9 +606,7 @@ class Chunker:
         chunks = []
 
         for filename in filenames:
-            image_bytes = confluence_client.download_attachment(
-                page.page_id, filename
-            )
+            image_bytes = confluence_client.download_attachment(page.page_id, filename)
             if not image_bytes:
                 continue
 

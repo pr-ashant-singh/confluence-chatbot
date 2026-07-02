@@ -141,12 +141,14 @@ class ConfluenceClient:
 
         metadata = []
         for raw in raw_pages:
-            metadata.append({
-                "page_id": str(raw["id"]),
-                "title": raw["title"],
-                "version": raw["version"]["number"],
-                "last_modified": raw["version"]["when"],
-            })
+            metadata.append(
+                {
+                    "page_id": str(raw["id"]),
+                    "title": raw["title"],
+                    "version": raw["version"]["number"],
+                    "last_modified": raw["version"]["when"],
+                }
+            )
 
         return metadata
 

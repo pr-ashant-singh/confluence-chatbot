@@ -8,7 +8,6 @@ for dense vectors using optimized indexing algorithms.
 """
 
 import json
-import os
 from pathlib import Path
 
 import numpy as np
@@ -64,10 +63,7 @@ class FAISSStore(VectorStore):
         try:
             import faiss
         except ImportError:
-            raise ImportError(
-                "faiss-cpu is required for FAISSStore. "
-                "Install it with: pip install faiss-cpu"
-            )
+            raise ImportError("faiss-cpu is required for FAISSStore. Install it with: pip install faiss-cpu")
 
         index_file = self._index_path / "index.faiss"
         keys_file = self._index_path / "keys.json"
@@ -137,9 +133,7 @@ class FAISSStore(VectorStore):
 
         self._save()
 
-    def upsert_batch(
-        self, keys: list[str], vectors: list[list[float]], metadatas: list[dict]
-    ) -> None:
+    def upsert_batch(self, keys: list[str], vectors: list[list[float]], metadatas: list[dict]) -> None:
         """Insert or update multiple vectors at once.
 
         More efficient than calling upsert() in a loop — does a single
@@ -289,9 +283,7 @@ class FAISSStore(VectorStore):
 
         # Reconstruct all vectors
         if self._index.ntotal > 0:
-            all_vectors = np.zeros(
-                (self._index.ntotal, self._dimension), dtype=np.float32
-            )
+            all_vectors = np.zeros((self._index.ntotal, self._dimension), dtype=np.float32)
             for i in range(self._index.ntotal):
                 all_vectors[i] = self._index.reconstruct(i)
 

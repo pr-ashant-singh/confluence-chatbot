@@ -100,9 +100,7 @@ class SyncManager:
 
         logger.debug(f"Saved sync state: {len(self._state)} pages")
 
-    def get_changes(
-        self, current_pages: list[dict], space_key: str
-    ) -> dict:
+    def get_changes(self, current_pages: list[dict], space_key: str) -> dict:
         """Compare current Confluence pages against stored state.
 
         Determines which pages are new, changed, or deleted.
@@ -143,9 +141,7 @@ class SyncManager:
                 unchanged_pages.append(pid)
 
         # Find deleted pages (in our state but no longer in Confluence for this space)
-        space_pages_in_state = {
-            pid for pid, s in self._state.items() if s.space_key == space_key
-        }
+        space_pages_in_state = {pid for pid, s in self._state.items() if s.space_key == space_key}
         deleted_pages = list(space_pages_in_state - current_ids)
 
         logger.info(

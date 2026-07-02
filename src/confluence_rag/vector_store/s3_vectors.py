@@ -38,9 +38,7 @@ class S3VectorsStore(VectorStore):
         region: str = "us-east-2",
         profile_name: str | None = None,
     ) -> None:
-        logger.debug(
-            f"S3VectorsStore.__init__ called with bucket={bucket_name}, index={index_name}"
-        )
+        logger.debug(f"S3VectorsStore.__init__ called with bucket={bucket_name}, index={index_name}")
         self._bucket_name = bucket_name
         self._index_name = index_name
         self._dimension = dimension
@@ -76,19 +74,14 @@ class S3VectorsStore(VectorStore):
         logger.debug("ensure_index_exists called")
         try:
             response = self._client.list_indexes(vectorBucketName=self._bucket_name)
-            existing_names = [
-                idx["indexName"] for idx in response.get("indexes", [])
-            ]
+            existing_names = [idx["indexName"] for idx in response.get("indexes", [])]
             if self._index_name in existing_names:
                 logger.info(f"Index '{self._index_name}' already exists")
                 return
         except Exception as e:
             logger.warning(f"Could not list indexes: {e}. Attempting creation.")
 
-        logger.info(
-            f"Creating index '{self._index_name}' "
-            f"(dimension={self._dimension}, metric=cosine)"
-        )
+        logger.info(f"Creating index '{self._index_name}' (dimension={self._dimension}, metric=cosine)")
         self._client.create_index(
             vectorBucketName=self._bucket_name,
             indexName=self._index_name,
@@ -119,9 +112,7 @@ class S3VectorsStore(VectorStore):
             ],
         )
 
-    def upsert_batch(
-        self, keys: list[str], vectors: list[list[float]], metadatas: list[dict]
-    ) -> None:
+    def upsert_batch(self, keys: list[str], vectors: list[list[float]], metadatas: list[dict]) -> None:
         """Insert or update multiple vectors in batches.
 
         S3 Vectors supports batch writes for efficiency. This method
@@ -150,9 +141,7 @@ class S3VectorsStore(VectorStore):
                 indexName=self._index_name,
                 vectors=batch_vectors,
             )
-            logger.debug(
-                f"Uploaded batch {i // batch_size + 1} ({len(batch_vectors)} vectors)"
-            )
+            logger.debug(f"Uploaded batch {i // batch_size + 1} ({len(batch_vectors)} vectors)")
 
         logger.info(f"Uploaded {len(keys)} vectors total")
 
@@ -231,11 +220,7 @@ class S3VectorsStore(VectorStore):
             segmentIndex=0,
         )
 
-        keys_to_delete = [
-            v["key"]
-            for v in response.get("vectors", [])
-            if v["key"].startswith(prefix)
-        ]
+        keys_to_delete = [v["key"] for v in response.get("vectors", []) if v["key"].startswith(prefix)]
 
         if not keys_to_delete:
             return 0

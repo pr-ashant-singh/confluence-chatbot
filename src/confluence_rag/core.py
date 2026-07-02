@@ -17,7 +17,7 @@ from confluence_rag.ingest.chunker import Chunker
 from confluence_rag.ingest.confluence_client import ConfluenceClient
 from confluence_rag.ingest.image_describer import ImageDescriber
 from confluence_rag.ingest.sync_manager import SyncManager
-from confluence_rag.models import Answer, Chunk
+from confluence_rag.models import Answer
 from confluence_rag.vector_store.base import VectorStore
 from confluence_rag.vector_store.s3_vectors import S3VectorsStore
 
@@ -121,7 +121,9 @@ class ConfluenceRAG:
         elif isinstance(vector_store, VectorStore):
             self._vector_store = vector_store
         else:
-            raise ValueError(f"Unsupported vector_store: {vector_store}. Use 'faiss', 's3vectors', or a VectorStore instance.")
+            raise ValueError(
+                f"Unsupported vector_store: {vector_store}. Use 'faiss', 's3vectors', or a VectorStore instance."
+            )
 
         # LLM
         if isinstance(llm, str) and llm.startswith("ollama/"):
