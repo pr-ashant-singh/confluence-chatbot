@@ -1,6 +1,6 @@
 [project]
 name = "confluence-chatbot"
-version = "0.1.0"
+version = "0.2.0"
 description = "Turn your Confluence docs into an AI chatbot in 5 minutes. Smart chunking, diagram support, and local or AWS deployment."
 requires-python = ">=3.11"
 license = "MIT"
