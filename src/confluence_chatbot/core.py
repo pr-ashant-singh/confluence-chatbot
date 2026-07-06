@@ -75,7 +75,7 @@ class ConfluenceChatbot:
         s3_profile: str | None = None,
         enable_image_description: bool = False,
         image_model: str = "llava:13b",
-        top_k: int = 5,
+        top_k: int = 8,
     ) -> None:
         logger.debug("ConfluenceChatbot.__init__ called")
 
